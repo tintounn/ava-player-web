@@ -5,17 +5,21 @@ import { ToastContainer } from 'react-toastify';
 import { request, getLocalStorageItem, setLocalStorageItem } from './utils';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
-import Movies from './pages/Movies';
 import Movie from './pages/Movie';
 import Home from './pages/Home';
 import Register from './pages/Register';
+import Check from './pages/Check';
+import Movies from './pages/Movies';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      loading: true,
+      redirect: false
+    };
   }
 
   componentWillMount() {
@@ -27,20 +31,32 @@ class App extends Component {
           token: getLocalStorageItem('token')
         }
       }).then((res) => {
-        if(!path.includes('/')) {
-
+        if(path === '/login') {
+          this.checkIsDone('/');
+        } else {
+          this.checkIsDone();
         }
       }).catch((err) => {
         if(path !== '/login') {
-          this.redirectTo('/login');
+          this.checkIsDone('/login');
+        } else {
+          this.checkIsDone();
         }
       });
     }
   }
 
-  redirectTo(url) {
+  checkIsDone(url) {
+    let state = {
+      loading: false
+    };
+
+    if(url) {
+      state.redirect = url;
+    }
+
     this.setState({
-      redirect: url
+      ...this.state, ...state
     });
   }
 
@@ -52,18 +68,24 @@ class App extends Component {
           {this.state.redirect &&
             <Redirect to={this.state.redirect} />
           }
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/movies/:movieId" component={Movie} />
+          {this.state.loading ? (
+            <Check/>
+          ) : (
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/movies" component={Movies} />
+              <Route exact path="/movies/:movieId" component={Movie} />
 
-            <Route exact path="/admin" component={Admin} />
+              <Route exact path="/admin" component={Admin} />
 
-            <Route render={() => {
-              return <p>404 not found</p>
-            }} />
-          </Switch>
+              <Route render={() => {
+                return <p>404 not found</p>
+              }} />
+            </Switch>
+          )}
+          
         </div>
       </Router>
     );

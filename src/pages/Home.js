@@ -20,15 +20,7 @@ export default class Home extends Component {
 
     return (
       <Layout style={{ height: '100%' }}>
-        <Tabs  defaultActiveKey="1" size={"large"}>
-          <Tabs.TabPane tab="Films" key="1"><Movies /></Tabs.TabPane>
-          <Tabs.TabPane tab="Compte" key="3">Account page</Tabs.TabPane>
-          {tokenData && tokenData.role == 1 &&
-            <Tabs.TabPane tab="Admin" key="4">
-              <Admin/>
-            </Tabs.TabPane>
-          }
-        </Tabs> 
+        
       </Layout>
     );
   }

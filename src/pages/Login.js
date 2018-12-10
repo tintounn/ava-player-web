@@ -51,10 +51,8 @@ export default class Login extends Component {
 
         <Row type="flex" style={{ height: '100%' }} align="middle" justify="center">
           <Col xs={{span: 12}} md={{span: 6}} lg={{span: 4}}>
-            <YouTube video={"ZuuVjuLNvFY"} controls={false} modestBranding
-                     showInfo={false} showRelatedVideos={false} volume={0.25}/>
             <div style={{textAlign: 'center'}}>
-              <span style={{fontSize: '32px'}}>Ava </span><span style={{fontSize: '12px'}}>Media center</span>
+              <span style={{fontSize: '32px'}}>Ava </span><span style={{fontSize: '12px'}}>Media center | <a target="_blank" href="https://www.youtube.com/watch?v=ZuuVjuLNvFY">kontra version</a></span>
             </div>
             <hr/>
             <LoginForm loading={this.state.loading} onSubmit={this.auth}/>
