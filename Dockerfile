@@ -14,4 +14,4 @@ RUN apk update && apk upgrade && \
 
 #PRODUCTION ENV
 FROM abiosoft/caddy:latest
-COPY --from=builder /home/app/ava-player-web/build /srv
+COPY --from=builder /home/app/ava-player-web/dist /srv
