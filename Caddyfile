@@ -1,0 +1,1 @@
+rewrite { to {path} {path}/ /index.html }
